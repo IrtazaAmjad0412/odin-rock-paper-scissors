@@ -1,64 +1,44 @@
-function getComputerChoice() {
-  const randomNum = Math.floor(Math.random() * 3) + 1;
+const rpsChoices = ["rock", "paper", "scissors"];
 
-  if (randomNum === 1) {
-    return "rock";
-  } else if (randomNum === 2) {
-    return "paper";
-  } else if (randomNum === 3) {
-    return "scissors";
-  }
-}
+const getComputerChoice = () => {
+  const randomNum = Math.floor(Math.random() * 3);
+  return rpsChoices[randomNum];
+};
 
-function getHumanChoice() {
-  return window.prompt("Choose Rock, Paper, or Scissors", "").toLowerCase();
-}
+console.log(getComputerChoice());
 
-function playGame() {
-  let computerScore = 0;
-  let humanScore = 0;
+const createRpsBtns = (arr, onClick) => {
+  const rpsContainer = document.createElement("div");
+  rpsContainer.className = "rps-container";
+  document.body.appendChild(rpsContainer);
 
-  function playRound(computerChoice, humanChoice) {
-    console.log("Computer chose:", computerChoice);
-    console.log("Your chose:", humanChoice);
+  arr.forEach((choice) => {
+    const rpsBtn = document.createElement("button");
+    rpsBtn.textContent = choice;
 
-    if (computerChoice === "rock" && humanChoice === "scissors") {
-      console.log(`${computerChoice} beats ${humanChoice}.`);
-      computerScore += 1;
-    } else if (computerChoice === "paper" && humanChoice === "rock") {
-      console.log(`${computerChoice} beats ${humanChoice}.`);
-      computerScore += 1;
-    } else if (computerChoice === "scissors" && humanChoice === "paper") {
-      console.log(`${computerChoice} beats ${humanChoice}.`);
-      computerScore += 1;
-    } else if (humanChoice === "rock" && computerChoice === "scissors") {
-      console.log(`${humanChoice} beats ${computerChoice}.`);
-      humanScore += 1;
-    } else if (humanChoice === "paper" && computerChoice === "rock") {
-      console.log(`${humanChoice} beats ${computerChoice}.`);
-      humanScore += 1;
-    } else if (humanChoice === "scissors" && computerChoice === "paper") {
-      console.log(`${humanChoice} beats ${computerChoice}.`);
-      humanScore += 1;
-    } else {
-      console.log("No one won the round! It is a tie.");
-    }
-    console.log(`Computer Score: ${computerScore}`, `Human Score: ${humanScore}`);
-  }
+    rpsBtn.addEventListener("click", (e) => onClick(e.target.textContent));
+    rpsContainer.appendChild(rpsBtn);
+  });
+};
 
-  playRound(getComputerChoice(), getHumanChoice());
-  playRound(getComputerChoice(), getHumanChoice());
-  playRound(getComputerChoice(), getHumanChoice());
-  playRound(getComputerChoice(), getHumanChoice());
-  playRound(getComputerChoice(), getHumanChoice());
+const displayChoices = (humanChoice) => {
+  const computerChoice = getComputerChoice();
 
-  if (computerScore === humanScore) {
-    console.log("No one won the game! It is a tie.");
-  } else if (computerScore > humanScore) {
-    console.log("You lost the game!");
-  } else {
-    console.log("You won the game!");
-  }
-}
+  const resultContainer = document.createElement("div");
+  resultContainer.className = "result-container";
 
-playGame();
+  const computerChoicePara = document.createElement("p");
+  computerChoicePara.textContent = `Computers chose: ${computerChoice}`;
+
+  const humanChoicePara = document.createElement("p");
+  humanChoicePara.textContent = `You chose: ${humanChoice}`;
+
+  resultContainer.append(computerChoicePara, humanChoicePara);
+  document.body.appendChild(resultContainer);
+};
+
+createRpsBtns(rpsChoices, displayChoices);
+
+// function playGame() {}
+
+// playGame();
