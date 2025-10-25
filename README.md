@@ -1,63 +1,54 @@
-# Odin Rock-Paper-Scissors
+# 🪨📄✂️ Odin Rock-Paper-Scissors
 
-A simple **Rock-Paper-Scissors** game implemented in JavaScript. This project emphasizes fundamental JavaScript concepts, such as functions, and conditionals. Notably, the game is implemented **without using loops, arrays, or objects**, showcasing a straightforward procedural approach.
+A simple **Rock-Paper-Scissors** game built with vanilla JavaScript, HTML, and CSS.  
+Players can play against the computer, and the game keeps track of both scores in real time.
 
-## Features
+---
 
-- Play a 5-round Rock-Paper-Scissors game against the computer.
-- Each round, both the user and the computer make a choice, and the winner is determined immediately.
-- Scores are tracked for both the human player and the computer.
-- A final message displays the overall winner after 5 rounds.
-- User input is handled via `window.prompt`.
+## 🎮 Features
 
-## How It Works
+- Choose between **Rock**, **Paper**, or **Scissors**.
+- The computer makes a random selection each round.
+- The scores for both **human** and **computer** are updated dynamically.
+- Displays each player’s choice after every round.
+- No external libraries or frameworks — pure JavaScript!
 
-### Computer Choice
+---
 
-The computer randomly selects a choice among `"rock"`, `"paper"`, or `"scissors"` using `Math.random()`:
+## 🧩 How It Works
 
-```javascript
-function getComputerChoice() {
-  const randomNum = Math.floor(Math.random() * 3) + 1;
+1. When the page loads, three buttons — **Rock**, **Paper**, and **Scissors** — are dynamically created.
+2. Each button click:
+   - Gets the computer’s random choice.
+   - Compares the human and computer selections.
+   - Updates and displays scores and choices in real time.
+3. The game continues indefinitely, allowing repeated rounds.
 
-  if (randomNum === 1) return "rock";
-  else if (randomNum === 2) return "paper";
-  else return "scissors";
-}
-```
+---
 
-### Human Choice
+## 🧠 Game Logic
 
-The human player is prompted to enter their choice. Input is automatically converted to lowercase to simplify comparison:
+| Human Choice | Computer Choice | Winner          |
+| ------------ | --------------- | --------------- |
+| Rock         | Scissors        | Human           |
+| Paper        | Rock            | Human           |
+| Scissors     | Paper           | Human           |
+| Same Choice  | Same Choice     | Tie (no points) |
 
-```javascript
-function getHumanChoice() {
-  return window.prompt("Choose Rock, Paper, or Scissors", "").toLowerCase();
-}
-```
+The game increases the score for whoever wins the round, and logs a message to the console in case of a tie.
 
-### Playing a Round
+---
 
-Each round compares the computer and human choices using if-else statements only. There are no loops, arrays, or objects:
+## 🛠️ Technologies Used
 
-```javascript
-function playRound(computerChoice, humanChoice) {
-  // Logic to determine the round winner
-}
-```
+- **HTML5** – For structuring the page dynamically through JavaScript.
+- **CSS3** – (Optional) You can add styles for the buttons and layout.
+- **JavaScript (ES6)** – Core logic and DOM manipulation.
 
-Scores are updated individually for each possible outcome.
+---
 
-### Playing the Game
+## 🚀 How to Run
 
-The game is played for exactly 5 rounds by manually calling playRound() five times. After the rounds, the scores are compared to determine the winner:
-
-```javascript
-playRound(getComputerChoice(), getHumanChoice());
-playRound(getComputerChoice(), getHumanChoice());
-playRound(getComputerChoice(), getHumanChoice());
-playRound(getComputerChoice(), getHumanChoice());
-playRound(getComputerChoice(), getHumanChoice());
-```
-
-Finally, the game announces the winner or a tie.
+1. Clone or download this repository.
+2. Open the `index.html` file in any modern web browser.
+3. Click on one of the buttons to start playing!

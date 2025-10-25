@@ -1,11 +1,29 @@
 const rpsChoices = ["rock", "paper", "scissors"];
 
+let computerScore = 0;
+let humanScore = 0;
+
+const resultContainer = document.createElement("div");
+resultContainer.className = "result-container";
+
+const computerChoicePara = document.createElement("p");
+const computerScorePara = document.createElement("p");
+const humanChoicePara = document.createElement("p");
+const humanScorePara = document.createElement("p");
+
+resultContainer.append(
+  computerChoicePara,
+  humanChoicePara,
+  computerScorePara,
+  humanScorePara
+);
+
+document.body.appendChild(resultContainer);
+
 const getComputerChoice = () => {
   const randomNum = Math.floor(Math.random() * 3);
   return rpsChoices[randomNum];
 };
-
-console.log(getComputerChoice());
 
 const createRpsBtns = (arr, onClick) => {
   const rpsContainer = document.createElement("div");
@@ -16,29 +34,40 @@ const createRpsBtns = (arr, onClick) => {
     const rpsBtn = document.createElement("button");
     rpsBtn.textContent = choice;
 
-    rpsBtn.addEventListener("click", (e) => onClick(e.target.textContent));
+    rpsBtn.addEventListener("click", () => onClick(choice));
     rpsContainer.appendChild(rpsBtn);
   });
 };
 
-const displayChoices = (humanChoice) => {
+const compareChoices = (humanChoice) => {
   const computerChoice = getComputerChoice();
 
-  const resultContainer = document.createElement("div");
-  resultContainer.className = "result-container";
+  if (
+    (computerChoice === "rock" && humanChoice === "scissors") ||
+    (computerChoice === "paper" && humanChoice === "rock") ||
+    (computerChoice === "scissors" && humanChoice === "paper")
+  ) {
+    computerScore += 1;
+  } else if (
+    (humanChoice === "rock" && computerChoice === "scissors") ||
+    (humanChoice === "paper" && computerChoice === "rock") ||
+    (humanChoice === "scissors" && computerChoice === "paper")
+  ) {
+    humanScore += 1;
+  } else if (computerChoice === humanChoice) {
+    console.log("No one won the round! It is a tie.");
+  }
 
-  const computerChoicePara = document.createElement("p");
-  computerChoicePara.textContent = `Computers chose: ${computerChoice}`;
-
-  const humanChoicePara = document.createElement("p");
-  humanChoicePara.textContent = `You chose: ${humanChoice}`;
-
-  resultContainer.append(computerChoicePara, humanChoicePara);
-  document.body.appendChild(resultContainer);
+  return { computerChoice, computerScore, humanChoice, humanScore };
 };
 
-createRpsBtns(rpsChoices, displayChoices);
+const displayChoicesandScore = (humanChoice) => {
+  const result = compareChoices(humanChoice);
 
-// function playGame() {}
+  computerChoicePara.textContent = `Computer chose: ${result.computerChoice}`;
+  computerScorePara.textContent = `Computer score: ${result.computerScore}`;
+  humanChoicePara.textContent = `You chose: ${result.humanChoice}`;
+  humanScorePara.textContent = `Your score: ${result.humanScore}`;
+};
 
-// playGame();
+createRpsBtns(rpsChoices, displayChoicesandScore);
